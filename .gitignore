@@ -1,0 +1,155 @@
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+conda-env/
+
+# ========================
+# Model weights & checkpoints
+# ========================
+*.pth
+*.pt
+*.bin
+*.ckpt
+*.safetensors
+*.onnx
+*.engine
+*.trt
+weights/
+checkpoints/
+ckpt/
+models/
+
+# ========================
+# Data files
+# ========================
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.npy
+*.npz
+*.parquet
+*.arrow
+data/
+outputs/
+results/
+
+# ========================
+# Video / Media (large files)
+# ========================
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+*.flv
+
+# ========================
+# IDE & Editor
+# ========================
+.vscode/
+.idea/
+*.code-workspace
+*.swp
+*.swo
+*~
+
+# ========================
+# Testing & Coverage
+# ========================
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# ========================
+# Logs
+# ========================
+*.log
+logs/
+runs/
+tensorboard/
+sam3_logs/
+wandb/
+
+# ========================
+# Jupyter Notebook
+# ========================
+.ipynb_checkpoints
+*-Copy*.ipynb
+
+# ========================
+# OS specific
+# ========================
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# ========================
+# Gradio / Streamlit cache
+# ========================
+gradio*
+.streamlit/
+
+# ========================
+# Misc
+# ========================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+*.bpe
+*.vocab
+*.mo
+*.pot
+
+# ========================
+# Claude Code
+# ========================
+.claude/
