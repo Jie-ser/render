@@ -151,6 +151,10 @@ def main():
         "--checkpoint", required=True,
         help="SAM3.1 本地 checkpoint 路径（必填，不会自动下载）",
     )
+    ap.add_argument(
+        "--use-fa3", action="store_true",
+        help="启用 FlashAttention 3（仅适用于带兼容 Hopper kernel 的 GPU；默认关闭）",
+    )
     args = ap.parse_args()
 
     checkpoint = os.path.abspath(args.checkpoint)
@@ -167,9 +171,14 @@ def main():
         print("[extract_masks] 没有任务")
         return
 
-    print(f"[extract_masks] 加载本地 SAM3.1 权重: {checkpoint} ...")
+    attention_backend = "FlashAttention 3" if args.use_fa3 else "PyTorch SDPA"
+    print(
+        f"[extract_masks] 加载本地 SAM3.1 权重: {checkpoint} "
+        f"(attention: {attention_backend}) ..."
+    )
     predictor = build_sam3_predictor(
-        version="sam3.1", checkpoint_path=checkpoint
+        version="sam3.1", checkpoint_path=checkpoint,
+        use_fa3=args.use_fa3,
     )
     print(f"[extract_masks] 模型就绪，共 {len(tasks)} 个任务\n")
 
