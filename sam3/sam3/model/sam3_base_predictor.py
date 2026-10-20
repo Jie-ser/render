@@ -10,6 +10,7 @@ Subclasses only need to override methods where their behavior differs.
 """
 
 import gc
+import inspect
 import time
 import uuid
 from typing import Dict, List, Optional
@@ -154,6 +155,21 @@ class Sam3BasePredictor:
             init_kwargs["async_loading_frames"] = self.async_loading_frames
         if hasattr(self, "video_loader_type"):
             init_kwargs["video_loader_type"] = self.video_loader_type
+
+        # SAM3 and SAM3.1 model implementations do not expose identical
+        # init_state() arguments. Keep the shared request API compatible with
+        # both by forwarding only options accepted by the selected model.
+        # In particular, SAM3.1 multiplex init_state() has no
+        # offload_state_to_cpu parameter.
+        init_parameters = inspect.signature(self.model.init_state).parameters
+        if not any(
+            parameter.kind == inspect.Parameter.VAR_KEYWORD
+            for parameter in init_parameters.values()
+        ):
+            init_kwargs = {
+                key: value for key, value in init_kwargs.items()
+                if key in init_parameters
+            }
         inference_state = self.model.init_state(**init_kwargs)
 
         if not session_id:

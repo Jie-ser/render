@@ -78,6 +78,7 @@ predictor.handle_request({"type": "close_session", "session_id": session_id})
 - `run_pipeline.py` 的遮罩步骤必须显式提供本地 checkpoint：在 `pipeline_config.json` 根对象设置 `sam3_checkpoint`，或用 `--sam3-checkpoint` / `SAM3_CHECKPOINT` 环境变量设置。
 - 默认使用上述服务器上的 SAM3.1 checkpoint；命令行、配置文件或环境变量可以覆盖默认值。
 - `scripts/extract_masks.py` 会验证该文件存在并通过 `checkpoint_path` 加载；文件无效时立即报错，不会访问 Hugging Face 或自动下载。
+- SAM3 与 SAM3.1 的 `init_state()` 参数并不完全相同；共享 predictor 只会向模型转发其 `init_state()` 签名支持的参数，避免 SAM3.1 因 `offload_state_to_cpu` 参数不兼容而在每个视频会话启动时失败。
 
 **依赖**: Python >= 3.12, PyTorch >= 2.7, CUDA >= 12.6, timm, huggingface_hub
 
