@@ -235,9 +235,16 @@ def step_mask(config, work_dir, gpu_id, sam3_checkpoint):
                if not os.path.isfile(t["output_path"])
                or os.path.getsize(t["output_path"]) == 0]
     if ret != 0 or missing:
+        details = []
+        if ret != 0:
+            details.append(
+                f"SAM3 子进程退出码: {ret}。请查看上方 [extract_masks] 首个 traceback。"
+            )
+        if missing:
+            details.append("未生成的遮罩文件:\n" + "\n".join(missing))
         raise RuntimeError(
             "SAM3 遮罩生成不完整，停止流水线，避免后续 RoboRender 缺少遮罩。\n"
-            + "\n".join(missing)
+            + "\n".join(details)
         )
 
 

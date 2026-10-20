@@ -182,6 +182,7 @@ def main():
     )
     print(f"[extract_masks] 模型就绪，共 {len(tasks)} 个任务\n")
 
+    failures = []
     for i, t in enumerate(tasks):
         vp = t["video_path"]
         prompt = t["sam3_prompt"]
@@ -193,13 +194,25 @@ def main():
         try:
             n_total, n_mask = extract_one(predictor, vp, prompt, out)
             print(f"       {n_total} 帧, {n_mask} 帧有遮罩 → {out}\n")
-        except Exception:
+        except Exception as exc:
             print(f"       [ERROR] 分割失败:")
             traceback.print_exc()
+            failures.append({"video": vp, "output": out, "error": repr(exc)})
             print()
 
+    if failures:
+        print(f"[extract_masks] 失败 {len(failures)}/{len(tasks)} 个任务：")
+        for failure in failures:
+            print(f"  - {failure['video']} -> {failure['output']}")
+            print(f"    {failure['error']}")
+        # A caught per-video exception must still fail the subprocess. This
+        # lets run_pipeline.py stop at SAM3 instead of reporting only missing
+        # output files after the script incorrectly exits with status 0.
+        return 1
+
     print("[extract_masks] 全部完成")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
