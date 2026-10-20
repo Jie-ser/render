@@ -22,6 +22,14 @@ SAM3_DIR = os.path.join(PROJECT_ROOT, "sam3")
 ROBORENDER_DIR = os.path.join(PROJECT_ROOT, "RoboRender-Video-Model")
 SCRIPTS_DIR = os.path.join(PROJECT_ROOT, "scripts")
 
+# Server-side conda environments.  Activate by absolute prefix so the
+# pipeline does not depend on the caller's environment names or cwd.
+ENV_PATHS = {
+    "vda": "/pfs/mayuema/depth/env/vda",
+    "sam3": "/pfs/mayuema/depth/env/sam3",
+    "roborender": "/pfs/mayuema/depth/env/roborender",
+}
+
 
 # ======================================================================
 # 工具函数
@@ -48,16 +56,19 @@ CONDA_BASE = None
 def run_in_env(env_name, cmd, cwd=None, gpu_id="0"):
     """在指定 conda 环境中执行 shell 命令"""
     global CONDA_BASE
+    if env_name not in ENV_PATHS:
+        raise ValueError(f"未知 conda 环境: {env_name}")
     if CONDA_BASE is None:
         CONDA_BASE = get_conda_base()
+    env_path = ENV_PATHS[env_name]
     full = (
         f'bash -c "'
         f"source {CONDA_BASE}/etc/profile.d/conda.sh && "
-        f"conda activate {env_name} && "
+        f"conda activate {env_path} && "
         f"CUDA_VISIBLE_DEVICES={gpu_id} {cmd}"
         f'"'
     )
-    log(f"[{env_name}] {cmd}", "RUN")
+    log(f"[{env_name} @ {env_path}] {cmd}", "RUN")
     return subprocess.run(full, shell=True, cwd=cwd).returncode
 
 
