@@ -4,6 +4,8 @@ SAM3 批量遮罩提取脚本
 
 在 sam3 conda 环境中运行。由 run_pipeline.py 自动调用。
 输入: --tasks <tasks.json>，每条任务包含 video_path、sam3_prompt、output_path。
+     --checkpoint <sam3.1_multiplex.pt> 指定本地权重；未指定时直接报错，
+     不会尝试从 Hugging Face 下载。
 输出: 每个视频对应一个 RGB 遮罩视频（机器人像素保留原色，背景全黑）。
 """
 
@@ -145,7 +147,18 @@ def extract_one(predictor, video_path, prompt, output_path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tasks", required=True, help="任务列表 JSON")
+    ap.add_argument(
+        "--checkpoint", required=True,
+        help="SAM3.1 本地 checkpoint 路径（必填，不会自动下载）",
+    )
     args = ap.parse_args()
+
+    checkpoint = os.path.abspath(args.checkpoint)
+    if not os.path.isfile(checkpoint) or os.path.getsize(checkpoint) == 0:
+        raise FileNotFoundError(
+            f"SAM3 checkpoint 不存在或为空: {checkpoint}\n"
+            "请把 ModelScope 下载的 sam3.1_multiplex.pt 路径传给 --checkpoint。"
+        )
 
     with open(args.tasks, encoding="utf-8") as f:
         tasks = json.load(f)
@@ -154,8 +167,10 @@ def main():
         print("[extract_masks] 没有任务")
         return
 
-    print(f"[extract_masks] 加载 SAM3.1 模型 ...")
-    predictor = build_sam3_predictor(version="sam3.1")
+    print(f"[extract_masks] 加载本地 SAM3.1 权重: {checkpoint} ...")
+    predictor = build_sam3_predictor(
+        version="sam3.1", checkpoint_path=checkpoint
+    )
     print(f"[extract_masks] 模型就绪，共 {len(tasks)} 个任务\n")
 
     for i, t in enumerate(tasks):

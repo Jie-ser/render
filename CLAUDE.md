@@ -73,9 +73,11 @@ predictor.handle_request({"type": "close_session", "session_id": session_id})
 **输入**: JPEG 帧目录 / MP4 视频 / 单张图片 / PIL Image 列表
 **输出**: 每帧每对象的二值分割遮罩、检测框、置信分数
 
-**模型权重**: HuggingFace `facebook/sam3` 或 `facebook/sam3.1` (需申请访问权限)
-- `sam3.pt` / `sam3.1_multiplex.pt`
-- 使用 `hf auth login` 认证后自动下载
+**模型权重**: SAM3.1 multiplex checkpoint，推荐使用已通过 ModelScope 下载到服务器的本地文件 `sam3.1_multiplex.pt`。
+- 服务器权重目录：`/pfs/mayuema/spj/render/sam3/checkpoints/`，SAM3.1 视频分割使用 `/pfs/mayuema/spj/render/sam3/checkpoints/sam3.1_multiplex.pt`（SAM3.1 multiplex，约 3.26 GB）；同目录也有 `sam3.pt`（基础 SAM3，约 3.21 GB）。
+- `run_pipeline.py` 的遮罩步骤必须显式提供本地 checkpoint：在 `pipeline_config.json` 根对象设置 `sam3_checkpoint`，或用 `--sam3-checkpoint` / `SAM3_CHECKPOINT` 环境变量设置。
+- 默认使用上述服务器上的 SAM3.1 checkpoint；命令行、配置文件或环境变量可以覆盖默认值。
+- `scripts/extract_masks.py` 会验证该文件存在并通过 `checkpoint_path` 加载；文件无效时立即报错，不会访问 Hugging Face 或自动下载。
 
 **依赖**: Python >= 3.12, PyTorch >= 2.7, CUDA >= 12.6, timm, huggingface_hub
 
@@ -155,11 +157,14 @@ sample/
 │       ├── video_depth_anything_vits.pth
 │       └── video_depth_anything_vitl.pth
 ├── sam3/
-│   └── (权重通过 HuggingFace 缓存自动管理)
+│   ├── checkpoints/
+│   │   ├── sam3.pt
+│   │   └── sam3.1_multiplex.pt       ← SAM3.1 pipeline 默认权重
+│   └── (SAM3源码)
 ├── RoboRender-Video-Model/
 │   ├── models/Wan2.1-Fun-V1.1-1.3B-Control/  ← 基础模型权重
 │   └── ckpt/roborender_lora.safetensors       ← LoRA 权重
-└── .hf_cache/                         ← HuggingFace 统一缓存目录
+└── .hf_cache/                         ← 其他 HuggingFace 模型的缓存目录
 ```
 
 ### Conda 环境

@@ -178,10 +178,20 @@ def step_depth(config, work_dir, gpu_id, encoder):
 # Step 3: 机器人分割 (SAM3)
 # ======================================================================
 
-def step_mask(config, work_dir, gpu_id):
+def step_mask(config, work_dir, gpu_id, sam3_checkpoint):
     print(f"\n{'='*60}")
     print(f"  Step 3/5  机器人分割 (SAM3)")
     print(f"{'='*60}")
+
+    if not sam3_checkpoint:
+        raise ValueError(
+            "未配置 SAM3 本地权重。请在 pipeline_config.json 添加 "
+            '"sam3_checkpoint": "/服务器上的/sam3.1_multiplex.pt"，'
+            "或使用 --sam3-checkpoint 指定；流水线不会自动从 Hugging Face 下载。"
+        )
+    sam3_checkpoint = os.path.abspath(sam3_checkpoint)
+    if not os.path.isfile(sam3_checkpoint) or os.path.getsize(sam3_checkpoint) == 0:
+        raise FileNotFoundError(f"SAM3 本地权重不存在或为空: {sam3_checkpoint}")
 
     tasks = []
     for sample in config["samples"]:
@@ -209,7 +219,7 @@ def step_mask(config, work_dir, gpu_id):
 
     log(f"共 {len(tasks)} 个分割任务")
     script = os.path.join(SCRIPTS_DIR, "extract_masks.py")
-    cmd = f"python {script} --tasks {tasks_file}"
+    cmd = f"python {script} --tasks {tasks_file} --checkpoint {sam3_checkpoint}"
     ret = run_in_env("sam3", cmd, cwd=SAM3_DIR, gpu_id=gpu_id)
 
     if ret != 0:
@@ -358,6 +368,10 @@ def main():
     ap.add_argument("--width", type=int, default=416)
     ap.add_argument("--height", type=int, default=240)
     ap.add_argument("--fps", type=int, default=15)
+    ap.add_argument(
+        "--sam3-checkpoint", default=None,
+        help="SAM3.1 本地权重路径；也可在配置中设置 sam3_checkpoint，或用 SAM3_CHECKPOINT 环境变量",
+    )
     ap.add_argument("--skip", nargs="*", default=[],
                     choices=["preprocess", "depth", "mask", "organize",
                              "roborender"],
@@ -366,6 +380,13 @@ def main():
 
     with open(args.config, encoding="utf-8") as f:
         config = json.load(f)
+
+    sam3_checkpoint = (
+        args.sam3_checkpoint
+        or config.get("sam3_checkpoint")
+        or os.environ.get("SAM3_CHECKPOINT")
+        or "/pfs/mayuema/spj/render/sam3/checkpoints/sam3.1_multiplex.pt"
+    )
 
     work_dir = os.path.abspath(args.output_dir)
     os.makedirs(work_dir, exist_ok=True)
@@ -387,7 +408,8 @@ def main():
                                                args.fps)),
         ("depth",      lambda: step_depth(config, work_dir,
                                           args.gpu, args.encoder)),
-        ("mask",       lambda: step_mask(config, work_dir, args.gpu)),
+        ("mask",       lambda: step_mask(config, work_dir, args.gpu,
+                                          sam3_checkpoint)),
         ("organize",   lambda: step_organize(config, work_dir)),
         ("roborender", lambda: step_roborender(config, work_dir, args.gpu)),
     ]

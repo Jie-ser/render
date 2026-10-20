@@ -1,4 +1,5 @@
 {
+  "sam3_checkpoint": "/pfs/mayuema/spj/render/sam3/checkpoints/sam3.1_multiplex.pt",
   "samples": [
     {
       "name": "case1",
