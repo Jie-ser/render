@@ -23,7 +23,8 @@ def ensure_deps():
     try:
         import cv2  # noqa: F401
     except ImportError:
-        missing.append("opencv-python")
+        # The pipeline only needs OpenCV's video/image APIs, not GUI support.
+        missing.append("opencv-python-headless")
     try:
         import imageio  # noqa: F401
     except ImportError:
@@ -32,6 +33,12 @@ def ensure_deps():
         import imageio_ffmpeg  # noqa: F401
     except ImportError:
         missing.append("imageio-ffmpeg")
+    try:
+        import pkg_resources  # noqa: F401
+    except ImportError:
+        # SAM3 currently imports pkg_resources; setuptools 81+ no longer
+        # provides it, so keep the compatible setuptools release available.
+        missing.append("setuptools<81")
     if missing:
         print(f"[extract_masks] 安装缺失依赖: {', '.join(missing)}")
         subprocess.check_call(

@@ -68,6 +68,9 @@ models/
 *.parquet
 *.arrow
 data/
+# SAM3 source package (the generic data/ rule above must not ignore this).
+!sam3/sam3/train/data/
+!sam3/sam3/train/data/*.py
 outputs/
 results/
 
