@@ -84,7 +84,17 @@ def main():
     args = parse_args()
     views = [parse_view(v, args.sample_dir) for v in args.views]
     names = [v[0] for v in views]
-    has_mask = any(v[2] is not None for v in views)
+    missing_masks = [
+        os.path.join(args.sample_dir, name, MASK_FILE)
+        for name, _, mask in views
+        if mask is None
+    ]
+    if missing_masks:
+        raise FileNotFoundError(
+            "RoboRender requires a mask video for every view. Missing:\n  "
+            + "\n  ".join(missing_masks)
+            + "\nRun the SAM3 mask-generation and organize steps before inference."
+        )
     if args.prompt is None:
         assert args.sample_dir, "--prompt is required without --sample_dir"
         args.prompt = open(os.path.join(args.sample_dir, "original_instruction.txt")).read().strip()
@@ -92,12 +102,12 @@ def main():
 
     # Load sources, truncate to the shortest stream, split into clips.
     depth = [load_video(v[1], args.height, args.width) for v in views]
-    masks = [load_video(v[2], args.height, args.width) if v[2] else None for v in views]
-    total = min([len(d) for d in depth] + [len(m) for m in masks if m is not None])
+    masks = [load_video(v[2], args.height, args.width) for v in views]
+    total = min([len(d) for d in depth] + [len(m) for m in masks])
     depth = [d[:total] for d in depth]
-    masks = [m[:total] if m is not None else None for m in masks]
+    masks = [m[:total] for m in masks]
     depth_clips = [split_into_clips(d, args.clip_length, args.overlap) for d in depth]
-    mask_clips = [split_into_clips(m, args.clip_length, args.overlap) if m is not None else None for m in masks]
+    mask_clips = [split_into_clips(m, args.clip_length, args.overlap) for m in masks]
     num_clips = len(depth_clips[0])
     print(f"Source frames: {total}, clips: {num_clips} x {args.clip_length} (overlap {args.overlap})")
 
@@ -121,7 +131,7 @@ def main():
         video = pipe(
             prompt=args.prompt,
             control_views=[depth_clips[vi][ci] for vi in range(len(names))],
-            mask_views=[mask_clips[vi][ci] for vi in range(len(names))] if has_mask else None,
+            mask_views=[mask_clips[vi][ci] for vi in range(len(names))],
             ref_views=refs,
             height=args.height, width=args.width, num_frames=args.clip_length,
             seed=args.seed, cfg_scale=args.cfg_scale, num_inference_steps=args.num_inference_steps,
@@ -144,7 +154,7 @@ def main():
     for fi in range(total):
         rows = []
         for vi in range(len(names)):
-            parts = [depth[vi][fi]] + ([masks[vi][fi]] if masks[vi] is not None else []) + [generated[vi][fi]]
+            parts = [depth[vi][fi], masks[vi][fi], generated[vi][fi]]
             rows.append(hstack(parts))
         comparison.append(vstack(rows))
     save_video(comparison, str(out_dir / "comparison.mp4"), fps=args.fps)

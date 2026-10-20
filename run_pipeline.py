@@ -116,6 +116,9 @@ def step_preprocess(config, work_dir, width, height, fps):
                 continue
 
             os.makedirs(os.path.dirname(dst), exist_ok=True)
+            if os.path.isfile(dst) and os.path.getsize(dst) > 0:
+                log(f"已存在，跳过预处理: {dst}", "OK")
+                continue
             cmd = [
                 "ffmpeg", "-y", "-i", src,
                 "-vf",
@@ -155,6 +158,9 @@ def step_depth(config, work_dir, gpu_id, encoder):
                 continue
 
             os.makedirs(p["depth_dir"], exist_ok=True)
+            if os.path.isfile(p["depth_vis"]) and os.path.getsize(p["depth_vis"]) > 0:
+                log(f"已存在，跳过深度估计: {p['depth_vis']}", "OK")
+                continue
             log(f"{sample['name']}/{view['view_name']}")
             cmd = (f"python run.py "
                    f"--input_video {src} "
@@ -181,6 +187,9 @@ def step_mask(config, work_dir, gpu_id):
     for sample in config["samples"]:
         for view in sample["views"]:
             p = paths_for(sample["name"], view["view_name"], work_dir)
+            if os.path.isfile(p["mask"]) and os.path.getsize(p["mask"]) > 0:
+                log(f"已存在，跳过遮罩: {p['mask']}", "OK")
+                continue
             if not os.path.isfile(p["prep"]):
                 log(f"预处理视频缺失，跳过: {p['prep']}", "WARN")
                 continue
@@ -207,10 +216,19 @@ def step_mask(config, work_dir, gpu_id):
         log(f"SAM3 返回错误 (exit {ret})", "ERR")
 
     for t in tasks:
-        if os.path.isfile(t["output_path"]):
+        if os.path.isfile(t["output_path"]) and os.path.getsize(t["output_path"]) > 0:
             log(f"完成: {os.path.basename(t['output_path'])}", "OK")
         else:
-            log(f"遮罩未生成: {t['output_path']}", "WARN")
+            log(f"遮罩未生成: {t['output_path']}", "ERR")
+
+    missing = [t["output_path"] for t in tasks
+               if not os.path.isfile(t["output_path"])
+               or os.path.getsize(t["output_path"]) == 0]
+    if ret != 0 or missing:
+        raise RuntimeError(
+            "SAM3 遮罩生成不完整，停止流水线，避免后续 RoboRender 缺少遮罩。\n"
+            + "\n".join(missing)
+        )
 
 
 # ======================================================================
@@ -280,6 +298,19 @@ def step_roborender(config, work_dir, gpu_id):
         if not os.path.isdir(sample_dir):
             log(f"跳过 {sample['name']} (输入目录不存在)", "WARN")
             continue
+
+        missing = []
+        for view in sample["views"]:
+            p = paths_for(sample["name"], view["view_name"], work_dir)
+            for key in ("rr_depth", "rr_mask"):
+                if not os.path.isfile(p[key]):
+                    missing.append(p[key])
+        if missing:
+            raise FileNotFoundError(
+                f"{sample['name']} 缺少 RoboRender 必需的深度/遮罩输入，停止推理：\n"
+                + "\n".join(missing)
+                + "\n请先成功完成 depth、mask 和 organize 步骤。"
+            )
 
         views = " ".join(v["view_name"] for v in sample["views"])
         out = os.path.join(gen_dir, sample["name"])
