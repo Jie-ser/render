@@ -1,0 +1,433 @@
+{
+  "samples": [
+    {
+      "name": "case1",
+      "roborender_prompt": "A white robot arm uses a parallel gripper to stack three colorful plastic cups together on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case1/left.mp4",
+          "sam3_prompt": "robot arm and gripper",
+          "pre_frame_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case1/left_frame0.png"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case1/right.mp4",
+          "sam3_prompt": "robot arm and gripper",
+          "pre_frame_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case1/right_frame0.png"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case1/head.mp4",
+          "sam3_prompt": "robot arm and gripper",
+          "pre_frame_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case1/head_frame0.png"
+        }
+      ]
+    },
+    {
+      "name": "case2",
+      "roborender_prompt": "A white robot arm uses a gripper to pick up a small colorful block and place it into a white container on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case2/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case2/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case2/head.mp4",
+          "sam3_prompt": "robot arm and gripper",
+          "pre_frame_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case2/head_frame0.png"
+        }
+      ]
+    },
+    {
+      "name": "case3",
+      "roborender_prompt": "A white robot arm uses a yellow plastic cup to scoop and pour small white granular pieces from a bowl into the cup on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case3/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case3/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case3/head.mp4",
+          "sam3_prompt": "robot arm and gripper",
+          "pre_frame_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case3/head_frame0.png"
+        }
+      ]
+    },
+    {
+      "name": "case4",
+      "roborender_prompt": "A white robot arm uses a gripper to pick up a small yellow block and place it into a black bowl on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case4/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case4/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case4/head.mp4",
+          "sam3_prompt": "robot arm and gripper",
+          "pre_frame_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case4/head_frame0.png"
+        }
+      ]
+    },
+    {
+      "name": "case5",
+      "roborender_prompt": "A white robot arm uses a gripper to move a small red block into a black bowl on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case5/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case5/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case5/head.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        }
+      ]
+    },
+    {
+      "name": "case6",
+      "roborender_prompt": "A white robot arm uses an orange plastic cup to scoop and pour small white and yellow granular pieces from a black bowl on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case6/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case6/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case6/head.mp4",
+          "sam3_prompt": "robot arm and gripper",
+          "pre_frame_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case6/head_frame0.png"
+        }
+      ]
+    },
+    {
+      "name": "case7",
+      "roborender_prompt": "A white robot arm uses a gripper to pick up colorful blocks and place them into a black bowl on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case7/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case7/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case7/head.mp4",
+          "sam3_prompt": "robot arm and gripper",
+          "pre_frame_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case7/head_frame0.png"
+        }
+      ]
+    },
+    {
+      "name": "case8",
+      "roborender_prompt": "A white robot arm uses a gripper to stack three colorful plastic cups together on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case8/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case8/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case8/head.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        }
+      ]
+    },
+    {
+      "name": "case9",
+      "roborender_prompt": "A white robot arm uses a gripper to stack three colorful plastic cups together on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case9/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case9/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case9/head.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        }
+      ]
+    },
+    {
+      "name": "case10",
+      "roborender_prompt": "A white robot arm uses a gripper to stack three colorful plastic cups together on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case10/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case10/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case10/head.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        }
+      ]
+    },
+    {
+      "name": "case11",
+      "roborender_prompt": "A white robot arm uses a parallel gripper to stack three colorful plastic cups together on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case11/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case11/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case11/head.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        }
+      ]
+    },
+    {
+      "name": "case12",
+      "roborender_prompt": "A white robot arm uses a gripper to stack three colorful plastic cups together on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case12/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case12/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case12/head.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        }
+      ]
+    },
+    {
+      "name": "case13",
+      "roborender_prompt": "A white robot arm uses a gripper to stack three colorful plastic cups together on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case13/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case13/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case13/head.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        }
+      ]
+    },
+    {
+      "name": "case14",
+      "roborender_prompt": "A white robot arm uses a gripper to stack three colorful plastic cups together on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case14/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case14/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case14/head.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        }
+      ]
+    },
+    {
+      "name": "case15",
+      "roborender_prompt": "A white robot arm performs three consecutive container moves, picking up colorful blocks and placing them into a black bowl on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case15/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case15/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case15/head.mp4",
+          "sam3_prompt": "robot arm and gripper",
+          "pre_frame_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case15/head_frame0.png"
+        }
+      ]
+    },
+    {
+      "name": "case16",
+      "roborender_prompt": "A white robot arm uses a gripper to stack three colorful plastic cups together on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case16/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case16/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case16/head.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        }
+      ]
+    },
+    {
+      "name": "case17",
+      "roborender_prompt": "A white robot arm uses a gripper to stack three colorful plastic cups together on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case17/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case17/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case17/head.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        }
+      ]
+    },
+    {
+      "name": "case18",
+      "roborender_prompt": "A white robot arm uses a gripper to pick up a small green block and place it into a black bowl on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case18/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case18/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case18/head.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        }
+      ]
+    },
+    {
+      "name": "case19",
+      "roborender_prompt": "A white robot arm uses a gripper to move small colorful blocks out of a black bowl and place them on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case19/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case19/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case19/head.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        }
+      ]
+    },
+    {
+      "name": "case20",
+      "roborender_prompt": "A white robot arm uses a gripper to pick up a small turquoise block and move it into or out of a container on a wooden table in a robotics lab.",
+      "views": [
+        {
+          "view_name": "hand_left",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case20/left.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "hand_right",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case20/right.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        },
+        {
+          "view_name": "head_color",
+          "video_path": "/pfs/mayuema/spj/render/render_droid/cases_20/case20/head.mp4",
+          "sam3_prompt": "robot arm and gripper"
+        }
+      ]
+    }
+  ]
+}

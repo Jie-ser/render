@@ -133,8 +133,53 @@ sample/
 
 4. **运行 RoboRender**: 生成逼真 RGB 视频
 
-## Git 提交规范
+## 开发工作流
 
+- 本地修改代码 → `git push` 推送到 GitHub → 服务器 `git pull` 拉取更新
 - 仓库远程地址: `https://github.com/Jie-ser/render.git`
 - 所有提交仅以仓库所有者 (Jie-ser) 名义进行，不引入任何 Co-Author
 - 提交信息使用中文或英文均可
+
+## 服务器部署信息
+
+### 硬件环境
+- GPU: 4x NVIDIA RPBZZZ6 (~98GB VRAM each)
+- CUDA Driver: 580.126.20, CUDA Version: 13.0
+- 代理: `http://10.184.64.107:18000`
+
+### 目录结构
+```
+/pfs/mayuema/spj/render/               ← 项目根目录 (git clone)
+├── Video-Depth-Anything/
+│   └── checkpoints/                   ← VDA 模型权重
+│       ├── video_depth_anything_vits.pth
+│       └── video_depth_anything_vitl.pth
+├── sam3/
+│   └── (权重通过 HuggingFace 缓存自动管理)
+├── RoboRender-Video-Model/
+│   ├── models/Wan2.1-Fun-V1.1-1.3B-Control/  ← 基础模型权重
+│   └── ckpt/roborender_lora.safetensors       ← LoRA 权重
+└── .hf_cache/                         ← HuggingFace 统一缓存目录
+```
+
+### Conda 环境
+| 环境名 | Python | PyTorch | CUDA | 用途 |
+|--------|--------|---------|------|------|
+| `vda` | 3.10 | 2.1.1 | cu121 | Video-Depth-Anything |
+| `sam3` | 3.12 | 2.10.0 | cu128 | SAM3 视频分割 |
+| `roborender` | 3.10 | 2.9.1 | cu128 | RoboRender 推理 |
+
+### 服务器常用命令
+```bash
+# 设置代理 (每次开新终端都需要)
+export http_proxy=http://10.184.64.107:18000
+export https_proxy=http://10.184.64.107:18000
+
+# 拉取最新代码
+cd /pfs/mayuema/spj/render && git pull
+
+# 激活环境
+conda activate vda          # Video-Depth-Anything
+conda activate sam3         # SAM3
+conda activate roborender   # RoboRender
+```
